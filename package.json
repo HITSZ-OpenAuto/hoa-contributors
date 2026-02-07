@@ -6,34 +6,35 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "eslint ."
   },
   "dependencies": {
-    "@nextui-org/react": "^2.1.13",
+    "@nextui-org/react": "^2.6.11",
     "@react-aria/ssr": "^3.9.10",
-    "@react-aria/visually-hidden": "^3.8.28",
-    "@types/node": "20.5.7",
-    "@types/react": "18.2.21",
-    "@types/react-dom": "18.2.7",
-    "autoprefixer": "10.4.15",
+    "@react-aria/visually-hidden": "^3.8.30",
+    "@types/node": "25.2.1",
+    "@types/react": "19.2.13",
+    "@types/react-dom": "19.2.3",
+    "autoprefixer": "10.4.24",
     "clsx": "^2.1.1",
     "copy-to-clipboard": "^3.3.3",
-    "eslint": "8.48.0",
-    "eslint-config-next": "13.4.19",
-    "framer-motion": "^10.18.0",
-    "intl-messageformat": "^10.7.18",
-    "next": "13.4.19",
-    "next-themes": "^0.2.1",
-    "postcss": "8.4.29",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
-    "sharp": "^0.32.6",
-    "swr": "^2.3.7",
-    "tailwind-variants": "^0.1.20",
-    "tailwindcss": "3.3.3",
-    "typescript": "5.0.4"
+    "eslint": "^9.16.0",
+    "eslint-config-next": "16.1.6",
+    "framer-motion": "^12.33.0",
+    "intl-messageformat": "^11.1.2",
+    "next": "16.1.6",
+    "next-themes": "^0.4.6",
+    "postcss": "8.5.6",
+    "react": "19.2.4",
+    "react-dom": "19.2.4",
+    "sharp": "^0.34.5",
+    "swr": "^2.4.0",
+    "tailwind-variants": "^3.2.2",
+    "tailwindcss": "^3.4.17",
+    "typescript": "5.9.3"
   },
   "devDependencies": {
-    "lru-cache": "^10.4.3"
+    "@eslint/eslintrc": "^3.3.3",
+    "lru-cache": "^11.2.5"
   }
 }

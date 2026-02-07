@@ -82,7 +82,7 @@ export function Builder() {
       params.push(`${key}=${value}`)
     })
     return `${location.origin}/api?` + params.join("&")
-  }, [repos])
+  }, [searchParams])
   const inputRef = useRef<HTMLInputElement>(null)
   const [copied, setCopied] = useState(false)
   function add() {

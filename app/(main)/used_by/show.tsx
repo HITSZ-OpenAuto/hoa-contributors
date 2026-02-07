@@ -74,6 +74,7 @@ export function Show() {
               >
                 <Image
                   src={`${host}/api?repo=${repo.name}&pages=${repo.pages}`}
+                  alt=""
                 />
               </Link>
             </CardBody>

@@ -3,10 +3,11 @@ import { GhUserUse } from "@/app/api/types"
 import { calParams, fetcher } from "@/utils"
 import { Spinner } from "@nextui-org/react"
 import { useSearchParams } from "next/navigation"
+import { Suspense } from "react"
 import useSWR from "swr"
 import { Error } from "./err"
 
-export default function Page() {
+function IframeContent() {
   const searchParams = useSearchParams()
   const { data, error, isLoading } = useSWR<GhUserUse[] & { error?: string }>(
     `/api/json?${searchParams.toString()}`,
@@ -28,7 +29,6 @@ export default function Page() {
   if (data?.error) {
     return <Error error={data.error} />
   }
-  console.log(isLoading, data, error)
   const users = data!
   const params = calParams({
     cols: searchParams.get("cols"),
@@ -89,5 +89,19 @@ export default function Page() {
         ))
       )}
     </svg>
+  )
+}
+
+export default function Page() {
+  return (
+    <Suspense
+      fallback={
+        <div className="h-full w-full flex justify-center items-center">
+          <Spinner />
+        </div>
+      }
+    >
+      <IframeContent />
+    </Suspense>
   )
 }

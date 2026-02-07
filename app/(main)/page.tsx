@@ -1,5 +1,6 @@
 import { title } from "@/components/primitives"
 import { Builder } from "./builder"
+import { Suspense } from "react"
 
 export default function Home() {
   return (
@@ -10,7 +11,9 @@ export default function Home() {
         <br />
         <h1 className={title()}>SVG Generator&nbsp;</h1>
       </div>
-      <Builder />
+      <Suspense fallback={<div className="min-h-[200px]" />}>
+        <Builder />
+      </Suspense>
     </section>
   )
 }

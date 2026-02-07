@@ -1,5 +1,6 @@
 import { title } from "@/components/primitives"
 import { Show } from "./show"
+import { Suspense } from "react"
 
 export const metadata = {
   title: "Used by",
@@ -11,7 +12,9 @@ export default function Page() {
         <h2 className={title({ color: "indigo", size: "sm" })}>Used&nbsp;</h2>
         <h2 className={title({ size: "sm" })}>By</h2>
       </div>
-      <Show />
+      <Suspense fallback={<div className="min-h-[200px]" />}>
+        <Show />
+      </Suspense>
     </section>
   )
 }
