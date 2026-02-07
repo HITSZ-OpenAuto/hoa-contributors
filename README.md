@@ -5,10 +5,10 @@ Automatically generate an svg with all contributors for your repository.
 ## Usage
 
 ```
-https://contrib.nn.ci/api?repo=[user/repo]
+https://contrib.hoa.moe/api?repo=[user/repo]
 ```
 
-Or generate online with [gh-contributors](https://contrib.nn.ci/)
+Or generate online with [gh-contributors](https://contrib.hoa.moe/)
 
 The following parameters are available:
 
@@ -23,7 +23,7 @@ The following parameters are available:
 
 ## Example
 
-![Contributors](https://contrib.nn.ci/api?repo=alist-org/alist&repo=alist-org/alist-web&repo=alist-org/docs)
+![Contributors](https://contrib.hoa.moe/api?repo=alist-org/alist&repo=alist-org/alist-web&repo=alist-org/docs)
 
 ## Getting Started
 

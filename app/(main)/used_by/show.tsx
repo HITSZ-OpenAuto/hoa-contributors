@@ -12,7 +12,7 @@ import {
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
 import useSWR from "swr"
 
-// const host = "https://api.nn.ci/proxy/https://contrib.nn.ci"
+// const host = "https://api.nn.ci/proxy/https://contrib.hoa.moe"
 const host = ""
 
 export function Show() {
