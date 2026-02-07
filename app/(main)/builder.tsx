@@ -81,7 +81,8 @@ export function Builder() {
     searchParams.forEach((value, key) => {
       params.push(`${key}=${value}`)
     })
-    return `${location.origin}/api?` + params.join("&")
+    const origin = typeof window !== "undefined" ? window.location.origin : ""
+    return `${origin}/api?` + params.join("&")
   }, [searchParams])
   const inputRef = useRef<HTMLInputElement>(null)
   const [copied, setCopied] = useState(false)
