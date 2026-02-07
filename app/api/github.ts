@@ -40,7 +40,7 @@ async function saveByPath<K extends {}, V extends {}>(
 }
 
 async function loadCache() {
-  log(`--- PAT: ${process.env.PAT} ---`)
+  log(`--- PAT: ${process.env.PAT ? "set" : "not set"} ---`)
   try {
     await fs.mkdir(path.dirname(repo_cache_file_path), { recursive: true })
     loadByPath(repoCache, repo_cache_file_path)
@@ -113,8 +113,17 @@ async function fetchRepoOnePage(repo: string, page: number) {
       fetchInit
     )
     if (res.status >= 400) {
-      // if status code >= 400, throw error
-      throw new Error(`failed to fetch repo [${repo}]: ${res.status}`)
+      let detail = `${res.status}`
+      try {
+        const body = await res.json() as { message?: string; documentation_url?: string }
+        if (body.message) detail += ` ${body.message}`
+      } catch {
+        // ignore JSON parse failure
+      }
+      if (res.status === 403 && !process.env.PAT) {
+        detail += " (set PAT env for higher rate limit and repo access)"
+      }
+      throw new Error(`failed to fetch repo [${repo}]: ${detail}`)
     }
     if (res.status !== 200) {
       // if status code is not 200, return empty array
@@ -170,19 +179,32 @@ export async function fetchRepo(repo: string, maxPages: number = 1) {
   return users
 }
 
+/** Merge new contributors into list by login; keeps first occurrence (existing behavior). */
+function mergeContributors(acc: GhUserUse[], incoming: GhUserUse[]): GhUserUse[] {
+  const logins = new Set(acc.map((u) => u.login))
+  for (const u of incoming) {
+    if (!logins.has(u.login)) {
+      logins.add(u.login)
+      acc.push(u)
+    }
+  }
+  return acc
+}
+
+const REPO_BATCH_SIZE = 20
+
 export async function fetchRepos(repos: string[], maxPages?: number) {
-  const users = (
-    await Promise.all(
-      repos.map(async (repo) => {
-        const users = await repoSF.do(repo, () => fetchRepo(repo, maxPages))
-        return users
-      })
+  const users: GhUserUse[] = []
+  const pages = Math.ceil(repos.length / REPO_BATCH_SIZE)
+  for (let p = 0; p < pages; p++) {
+    const batch = repos.slice(p * REPO_BATCH_SIZE, (p + 1) * REPO_BATCH_SIZE)
+    const batchResults = await Promise.all(
+      batch.map((repo) => repoSF.do(repo, () => fetchRepo(repo, maxPages ?? 1)))
     )
-  )
-    .flat()
-    .filter((item, index, arr) => {
-      return arr.findIndex((t) => t.login === item.login) === index
-    })
+    for (const repoUsers of batchResults) {
+      mergeContributors(users, repoUsers)
+    }
+  }
   return users
 }
 
