@@ -25,7 +25,7 @@ export function getUser(
       <rect width="${params.width}" height="${params.height}" x="${x}" y="${y}" rx="${params.radius}" />
     </clipPath>
   </defs>
-  <image class="avatar" clip-path="url(#${user.login})" x="${x}" y="${y}" width="${params.width}" height="${params.height}" xlink:href="data:image/png;base64,${avatar}" />
+  <image class="avatar" clipPath="url(#${user.login})" x="${x}" y="${y}" width="${params.width}" height="${params.height}" xlink:href="data:image/png;base64,${avatar}" />
 </a>`
 }
 

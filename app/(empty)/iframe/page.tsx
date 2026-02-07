@@ -78,7 +78,7 @@ function IframeContent() {
             </defs>
             <image
               className="rounded-full"
-              clip-path={`url(#${user.login})`}
+              clipPath={`url(#${user.login})`}
               x={params.x(j)}
               y={params.y(i)}
               width={params.width}
